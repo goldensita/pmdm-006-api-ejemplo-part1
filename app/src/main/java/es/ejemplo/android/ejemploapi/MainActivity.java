@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -44,7 +47,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.i("JSON", s);
+
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                Log.i("JSON", "conversion rate = " + jsonObject.getString("EUR_USD"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
